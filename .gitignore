@@ -1,0 +1,6 @@
+# A bunch of CMake related stuff.
+CMakeCache.txt
+CMakeFiles/
+bin/
+Makefile
+cmake_install.cmake
