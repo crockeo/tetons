@@ -4,7 +4,7 @@ project("tentons")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-set(SOURCES "src/pixel.cpp")
+set(SOURCES "src/pixel.cpp" "src/image.cpp")
 
 add_library(tentons-lib ${SOURCES})
 
