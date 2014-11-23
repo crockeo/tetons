@@ -7,22 +7,10 @@
 #include <string>
 
 #include "pixel.hpp"
+#include "load.hpp"
 
 //////////
 // Code //
-
-// Loading a bunch of pixels from a ppm file.
-Pixel* loadPPM(std::string path) {
-    std::ifstream* in = new std::ifstream(path);
-
-    if (*in) {
-        in->close();
-        return nullptr;
-    } else {
-        std::cerr << "Could not open file '" << path << "'.\n";
-        return nullptr;
-    }
-}
 
 // Loading an image from a file.
 Image::Image(std::string path) {

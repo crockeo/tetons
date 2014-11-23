@@ -4,7 +4,10 @@ project("tentons")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-set(SOURCES "src/pixel.cpp" "src/image.cpp")
+set(SOURCES "src/pixel.cpp"
+            "src/image.cpp"
+            "src/load.cpp")
+
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 add_library(tentons-lib ${SOURCES})
