@@ -26,17 +26,26 @@ Pixel* loadPPM(std::string path) {
 
 // Loading an image from a file.
 Image::Image(std::string path) {
-    this->pixels = loadPPM(path);
+    Pixel* pixels = loadPPM(path);
+
+    if (pixels == nullptr)
+        this->error = true;
+    else
+        this->error = false;
+
+    this->pixels = pixels;
 }
 
 // Creating a new image from a set of Pixels.
 Image::Image(Pixel* pixels) {
     this->pixels = pixels;
+    this->error = false;
 }
 
 // Creating a new (empty) image.
 Image::Image() {
     this->pixels = new Pixel[0];
+    this->error = false;
 }
 
 // Deconstructing an image.

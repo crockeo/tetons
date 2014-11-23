@@ -13,6 +13,7 @@
 // A type to represent an image.
 struct Image {
     Pixel* pixels;
+    bool error;
 
     // Loading an image from a file.
     Image(std::string);
