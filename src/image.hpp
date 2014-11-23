@@ -32,6 +32,9 @@ struct Image {
 };
 
 // Processing a set of images to sort out unwanted pixels.
-Image processImages(Image, Image, Image);
+Image* processImages(Image*, Image*, Image*);
+
+// Writing an image out to the disk.
+void writeImage(Image*, std::string);
 
 #endif

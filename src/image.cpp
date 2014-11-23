@@ -64,3 +64,8 @@ Image* processImages(Image* i1, Image* i2, Image* i3) {
 
     return new Image(pixels);
 }
+
+// Writing an image out to the disk.
+void writeImage(Image* img, std::string path) {
+    // TODO: Write image.
+}
