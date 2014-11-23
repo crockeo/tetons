@@ -17,6 +17,9 @@ struct Image {
     // Loading an image from a file.
     Image(std::string);
 
+    // Creating a new image from a set of Pixels.
+    Image(Pixel*);
+
     // Creating a new (empty) image.
     Image();
 
