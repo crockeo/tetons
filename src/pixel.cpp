@@ -66,5 +66,6 @@ Pixel choosePixel(Pixel a, Pixel b, Pixel c) {
     else if (bcd <= abd && bcd <= acd)
         return b.average(c);
 
-    return Pixel(0, 0, 0);
+    Pixel p;
+    return p;
 }
