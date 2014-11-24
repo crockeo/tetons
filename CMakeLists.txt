@@ -8,7 +8,7 @@ set(SOURCES "src/pixel.cpp"
             "src/image.cpp"
             "src/load.cpp")
 
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall ${CMAKE_CXX_FLAGS}")
 
 add_library(tentons-lib ${SOURCES})
 
