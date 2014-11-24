@@ -47,8 +47,8 @@ Image** loadImages(char** argv) {
 int main(int argc, char** argv) {
     // Checking for argument validity.
     if (argc != 5) {
-        std::cout << "Proper usage: tentons <output image 1> <output image 2> "
-                  << "<output image 3> <output image>\n";
+        std::cout << "Proper usage: tentons <input image 1> <input image 2> "
+                  << "<input image 3> <output image>\n";
 
         return 1;
     }
