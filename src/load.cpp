@@ -24,17 +24,22 @@ bool verifyHeader(std::ifstream* in) {
     return good;
 }
 
-// Loading a PPM into a set of pixels
-Pixel* loadPPM(std::string path) {
-    std::ifstream* in = new std::ifstream(path.c_str());
+// Loading the width and height from a file buffer.
+int* loadSize(std::ifstream* in) {
+    return nullptr;
+}
 
-    if (!in->good()) {
-        std::cerr << "Could not open PPM.\n";
-        return nullptr;
-    }
+// Loading the max value of an image buffer.
+int loadMaxValue(std::ifstream* in) {
+    return 0;
+}
 
-    if (!verifyHeader(in))
-        return nullptr;
+// Loading a single pixel from an ifstream.
+Pixel loadPixel(std::ifstream* in) {
+    return Pixel(0, 0, 0);
+}
 
+// Loading every single Pixel from an ifstream.
+Pixel* loadPixels(std::ifstream* in) {
     return nullptr;
 }

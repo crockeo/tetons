@@ -14,13 +14,51 @@
 
 // Loading an image from a file.
 Image::Image(std::string path) {
-    Pixel* pixels = loadPPM(path);
-
-    this->pixels = pixels;
+    this->pixels = nullptr;
     this->width = 0;
     this->height = 0;
     this->maxValue = 0;
-    this->error = pixels == nullptr;
+    this->error = false;
+
+    std::ifstream* in = new std::ifstream(path);
+    if (!in) {
+        this->error = true;
+        return;
+    }
+
+    // Verifying the file header.
+    if (!verifyHeader(in)) {
+        this->error = true;
+        return;
+    }
+
+    // Loading the size.
+    int* size = loadSize(in);
+    if (size == nullptr) {
+        this->error = true;
+        return;
+    }
+
+    this->width = size[0];
+    this->height = size[1];
+
+    // Loading the maximum value.
+    int maxValue = loadMaxValue(in);
+    if (maxValue == -1) {
+        this->error = true;
+        return;
+    }
+
+    this->maxValue = maxValue;
+
+    // Loading every single pixel.
+    Pixel* pixels = loadPixels(in);
+    if (pixels == nullptr) {
+        this->error = true;
+        return;
+    }
+
+    this->pixels = pixels;
 }
 
 // Creating a new image from a set of Pixels.
