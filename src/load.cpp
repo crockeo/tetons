@@ -115,34 +115,34 @@ Pixel loadPixel(std::ifstream* in) {
 
 // Loading every single Pixel from an ifstream.
 Pixel* loadPixels(std::ifstream* in) {
-    int size = 0;
+    bool written = false;
+    int size = 1;
     int length = 0;
     Pixel* pixels = new Pixel[size];
 
     for (Pixel p = loadPixel(in); !p.error; p = loadPixel(in)) {
         if (length >= size) {
-            Pixel* tempPixels = new Pixel[size * 2];
-            for (int i = 0; i < size; i++)
-                tempPixels[i] = pixels[i];
+            if (written) {
+                Pixel* tempPixels = new Pixel[size * 2];
+                for (int i = 0; i < size; i++)
+                    tempPixels[i] = pixels[i];
+                delete[] pixels;
+                pixels = tempPixels;
+            }
 
-            if (size == 0)
-                size++;
-            else
-                size *= 2;
-
-            delete[] pixels;
-            pixels = tempPixels;
+            size *= 2;
         }
 
         pixels[length++] = p;
+        written = true;
     }
 
     if (size == 0) {
         delete[] pixels;
         return nullptr;
     } else {
-        Pixel* tempPixels = new Pixel[length];
-        for (int i = 0; i < length; i++)
+        Pixel* tempPixels = new Pixel[length + 1];
+        for (int i = 0; i <= length; i++)
             tempPixels[i] = pixels[i];
         delete[] pixels;
         pixels = tempPixels;

@@ -73,6 +73,7 @@ Image::Image(std::string path) {
     }
 
     this->pixels = pixels;
+    delete in;
 }
 
 // Creating a new image from a set of Pixels.
@@ -121,6 +122,7 @@ int Image::save(std::string path) {
     }
 
     out->close();
+    delete out;
 
     return 1;
 }
