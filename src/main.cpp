@@ -14,6 +14,7 @@ Image* loadImage(char* path) {
     Image* img = new Image(std::string(path));
     if (img->error) {
         std::cerr << "Failed to load image " << path << ".\n";
+        delete img;
         return nullptr;
     }
 
@@ -25,16 +26,25 @@ Image** loadImages(char** argv) {
     Image** imgs = new Image*[3];
 
     Image* img1 = loadImage(argv[1]);
-    if (img1 == nullptr)
+    if (img1 == nullptr) {
+        delete[] imgs;
         return nullptr;
+    }
 
     Image* img2 = loadImage(argv[2]);
-    if (img2 == nullptr)
+    if (img2 == nullptr) {
+        delete[] imgs;
+        delete img1;
         return nullptr;
+    }
 
     Image* img3 = loadImage(argv[3]);
-    if (img3 == nullptr)
+    if (img3 == nullptr) {
+        delete[] imgs;
+        delete img1;
+        delete img2;
         return nullptr;
+    }
 
     imgs[0] = img1;
     imgs[1] = img2;
@@ -67,11 +77,13 @@ int main(int argc, char** argv) {
     writeImage(out, std::string(argv[4]));
 
     // Cleaning up memory.
-    std::cout << "Cleaning up memory...";
+    std::cout << "Cleaning up memory...\n";
     for (int i = 0; i < 3; i++)
         if (imgs[i] != nullptr)
             delete imgs[i];
-    delete imgs;
+
+    delete[] imgs;
+
     if (out != nullptr)
         delete out;
 

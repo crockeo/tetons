@@ -32,8 +32,9 @@ int toInts(char* cs, int accum) {
 
 // Consuming spaces from an ifstream. It returns the first character that's
 // matched as NOT a whitespace character.
-char consumeSpaces(std::ifstream* in) {
-    return 'A';
+void consumeWhitespace(std::ifstream* in) {
+    while (in->peek() == ' ')
+        in->get();
 }
 
 // Verifying the hedaer on a PPM.
@@ -46,6 +47,7 @@ bool verifyHeader(std::ifstream* in) {
         good = true;
 
     delete[] header;
+
     return good;
 }
 
@@ -62,6 +64,9 @@ int* loadSize(std::ifstream* in) {
     size[0] = toInts(width, 0);
     size[1] = toInts(height, 0);
 
+    delete[] width;
+    delete[] height;
+
     return size;
 }
 
@@ -69,12 +74,39 @@ int* loadSize(std::ifstream* in) {
 int loadMaxValue(std::ifstream* in) {
     char* mv = new char[16];
     in->getline(mv, 16, '\n');
-    return toInts(mv, 0);
+
+    int n = toInts(mv, 0);
+    delete[] mv;
+
+    return n;
 }
 
 // Loading a single pixel from an ifstream.
 Pixel loadPixel(std::ifstream* in) {
-    Pixel p;
+    if (in->eof()) {
+        Pixel p;
+        p.error = true;
+        return p;
+    }
+
+    char* str = new char[16];
+    int r, g, b;
+
+    consumeWhitespace(in);
+    in->get(str, 16, ' ');
+    r = toInts(str, 0);
+
+    consumeWhitespace(in);
+    in->get(str, 16, ' ');
+    g = toInts(str, 0);
+
+    consumeWhitespace(in);
+    in->get(str, 16, ' ');
+    b = toInts(str, 0);
+
+    delete[] str;
+
+    Pixel p(r, g, b);
     return p;
 }
 
@@ -98,12 +130,20 @@ Pixel* loadPixels(std::ifstream* in) {
             delete[] pixels;
             pixels = tempPixels;
         }
+
         pixels[length++] = p;
-
-
     }
 
-    if (size == 0)
+    if (size == 0) {
+        delete[] pixels;
         return nullptr;
+    } else {
+        Pixel* tempPixels = new Pixel[length];
+        for (int i = 0; i < length; i++)
+            tempPixels[i] = pixels[i];
+        delete[] pixels;
+        pixels = tempPixels;
+    }
+
     return pixels;
 }

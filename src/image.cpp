@@ -22,6 +22,7 @@ Image::Image(std::string path) {
 
     std::ifstream* in = new std::ifstream(path);
     if (!in) {
+        std::cerr << "Could not open file to read.\n";
         this->error = true;
         return;
     }
@@ -29,6 +30,8 @@ Image::Image(std::string path) {
     // Verifying the file header.
     if (!verifyHeader(in)) {
         std::cerr << "Could not verify the file header.\n";
+        in->close();
+        delete in;
         this->error = true;
         return;
     }
@@ -37,17 +40,22 @@ Image::Image(std::string path) {
     int* size = loadSize(in);
     if (size == nullptr) {
         std::cerr << "Could not load the image size.\n";
+        in->close();
+        delete in;
         this->error = true;
         return;
     }
 
     this->width = size[0];
     this->height = size[1];
+    delete[] size;
 
     // Loading the maximum value.
     int maxValue = loadMaxValue(in);
     if (maxValue == -1) {
         std::cerr << "Could not load the maximum value.\n";
+        in->close();
+        delete in;
         this->error = true;
         return;
     }
@@ -58,6 +66,8 @@ Image::Image(std::string path) {
     Pixel* pixels = loadPixels(in);
     if (pixels == nullptr) {
         std::cerr << "Could not load the image pixels.\n";
+        in->close();
+        delete in;
         this->error = true;
         return;
     }
@@ -85,7 +95,8 @@ Image::Image() {
 
 // Deconstructing an image.
 Image::~Image() {
-    delete[] this->pixels;
+    if (this->pixels != nullptr)
+        delete[] this->pixels;
 }
 
 // Saving an image to a file.
@@ -95,12 +106,7 @@ int Image::save(std::string path) {
 
 // Processing a set of images to sort out unwanted pixels.
 Image* processImages(Image* i1, Image* i2, Image* i3) {
-    Pixel* pixels;
-
-    return new Image(pixels,
-                     i1->width,
-                     i1->height,
-                     i1->maxValue);
+    return nullptr;
 }
 
 // Writing an image out to the disk.
