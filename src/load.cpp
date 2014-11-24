@@ -33,7 +33,10 @@ int toInts(char* cs, int accum) {
 // Consuming spaces from an ifstream. It returns the first character that's
 // matched as NOT a whitespace character.
 void consumeWhitespace(std::ifstream* in) {
-    while (in->peek() == ' ')
+    while (in->peek() == ' '  ||
+           in->peek() == '\t' ||
+           in->peek() == '\n' ||
+           in->peek() == '\r')
         in->get();
 }
 
