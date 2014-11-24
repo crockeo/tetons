@@ -9,9 +9,11 @@ struct Pixel {
     unsigned char r;
     unsigned char g;
     unsigned char b;
+    bool error;
 
     // Constructing a Pixel.
     Pixel(unsigned char, unsigned char, unsigned char);
+    Pixel();
 
     // Summing the values in a Pixel.
     int sum();

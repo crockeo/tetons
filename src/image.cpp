@@ -28,6 +28,7 @@ Image::Image(std::string path) {
 
     // Verifying the file header.
     if (!verifyHeader(in)) {
+        std::cerr << "Could not verify the file header.\n";
         this->error = true;
         return;
     }
@@ -35,6 +36,7 @@ Image::Image(std::string path) {
     // Loading the size.
     int* size = loadSize(in);
     if (size == nullptr) {
+        std::cerr << "Could not load the image size.\n";
         this->error = true;
         return;
     }
@@ -45,6 +47,7 @@ Image::Image(std::string path) {
     // Loading the maximum value.
     int maxValue = loadMaxValue(in);
     if (maxValue == -1) {
+        std::cerr << "Could not load the maximum value.\n";
         this->error = true;
         return;
     }
@@ -54,6 +57,7 @@ Image::Image(std::string path) {
     // Loading every single pixel.
     Pixel* pixels = loadPixels(in);
     if (pixels == nullptr) {
+        std::cerr << "Could not load the image pixels.\n";
         this->error = true;
         return;
     }
