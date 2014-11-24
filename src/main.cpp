@@ -73,8 +73,12 @@ int main(int argc, char** argv) {
     Image* out = processImages(imgs[0], imgs[1], imgs[2]);
 
     // Writing the output image.
-    std::cout << "Writing output image...\n";
-    writeImage(out, std::string(argv[4]));
+    if (out != nullptr) {
+        std::cout << "Writing output image...\n";
+        out->save(std::string(argv[4]));
+    } else {
+        std::cout << "Cannot write out null output image!\n";
+    }
 
     // Cleaning up memory.
     std::cout << "Cleaning up memory...\n";

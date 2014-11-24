@@ -101,15 +101,19 @@ Image::~Image() {
 
 // Saving an image to a file.
 int Image::save(std::string path) {
+    std::ofstream* out = new std::ofstream(path);
+    if (!out->good()) {
+        delete out;
+        return 1;
+    }
+
+    *out << "P3\n";
+    *out << this->width << " " << this->height << "\n";
+
     return 1;
 }
 
 // Processing a set of images to sort out unwanted pixels.
 Image* processImages(Image* i1, Image* i2, Image* i3) {
     return nullptr;
-}
-
-// Writing an image out to the disk.
-void writeImage(Image* img, std::string path) {
-    // TODO: Write image.
 }
