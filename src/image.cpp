@@ -16,23 +16,28 @@
 Image::Image(std::string path) {
     Pixel* pixels = loadPPM(path);
 
-    if (pixels == nullptr)
-        this->error = true;
-    else
-        this->error = false;
-
     this->pixels = pixels;
+    this->width = 0;
+    this->height = 0;
+    this->maxValue = 0;
+    this->error = pixels == nullptr;
 }
 
 // Creating a new image from a set of Pixels.
-Image::Image(Pixel* pixels) {
+Image::Image(Pixel* pixels, int width, int height, int maxValue) {
     this->pixels = pixels;
+    this->width = width;
+    this->height = height;
+    this->maxValue = maxValue;
     this->error = false;
 }
 
 // Creating a new (empty) image.
 Image::Image() {
     this->pixels = new Pixel[0];
+    this->width = 0;
+    this->height = 0;
+    this->maxValue = 0;
     this->error = false;
 }
 
@@ -50,7 +55,10 @@ int Image::save(std::string path) {
 Image* processImages(Image* i1, Image* i2, Image* i3) {
     Pixel* pixels;
 
-    return new Image(pixels);
+    return new Image(pixels,
+                     i1->width,
+                     i1->height,
+                     i1->maxValue);
 }
 
 // Writing an image out to the disk.

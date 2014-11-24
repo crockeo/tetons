@@ -13,13 +13,15 @@
 // A type to represent an image.
 struct Image {
     Pixel* pixels;
+    int width, height;
+    int maxValue;
     bool error;
 
     // Loading an image from a file.
     Image(std::string);
 
     // Creating a new image from a set of Pixels.
-    Image(Pixel*);
+    Image(Pixel*, int, int, int);
 
     // Creating a new (empty) image.
     Image();
