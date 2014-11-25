@@ -34,6 +34,6 @@ struct Image {
 };
 
 // Processing a set of images to sort out unwanted pixels.
-Image* processImages(Image*, Image*, Image*);
+Image* processImages(int, Image**);
 
 #endif

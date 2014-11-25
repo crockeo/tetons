@@ -56,19 +56,19 @@ int main(int argc, char** argv) {
 
     // Processing the output image.
     std::cout << "Processing output image...\n";
-    Image* out = processImages(imgs[0], imgs[1], imgs[2]);
+    Image* out = processImages(argc - 2, imgs);
 
     // Writing the output image.
     if (out != nullptr) {
         std::cout << "Writing output image...\n";
-        out->save(std::string(argv[4]));
+        out->save(std::string(argv[argc - 1]));
     } else {
         std::cout << "Cannot write out null output image!\n";
     }
 
     // Cleaning up memory.
     std::cout << "Cleaning up memory...\n";
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < argc - 2; i++)
         if (imgs[i] != nullptr)
             delete imgs[i];
 
