@@ -37,6 +37,10 @@ bool Pixel::equals(Pixel p) {
            this->b == p.b;
 }
 
+bool Pixel::operator==(Pixel p) {
+    return this->equals(p);
+}
+
 // Getting the distance between two pixels.
 int Pixel::distance(Pixel p) {
     Pixel temp(absolute(this->r - p.r),

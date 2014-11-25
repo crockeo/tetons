@@ -20,6 +20,7 @@ struct Pixel {
 
     // Checking equality between pixels.
     bool equals(Pixel);
+    bool operator==(Pixel);
 
     // Getting the distance between two pixels.
     int distance(Pixel);
