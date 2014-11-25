@@ -22,33 +22,20 @@ Image* loadImage(char* path) {
 }
 
 // Loading a set of images.
-Image** loadImages(char** argv) {
-    Image** imgs = new Image*[3];
+Image** loadImages(int argc, char** argv) {
+    Image** imgs = new Image*[argc - 2];
 
-    Image* img1 = loadImage(argv[1]);
-    if (img1 == nullptr) {
-        delete[] imgs;
-        return nullptr;
+    for (int i = 1; i < argc - 1; i++) {
+        imgs[i - 1] = loadImage(argv[i]);
+        if (imgs[i - 1] == nullptr) {
+            std::cerr << "Could not load image " << argv[i] << "!\n";
+            for (int j = 1; j < i; i++)
+                delete imgs[j];
+            delete[] imgs;
+
+            return nullptr;
+        }
     }
-
-    Image* img2 = loadImage(argv[2]);
-    if (img2 == nullptr) {
-        delete[] imgs;
-        delete img1;
-        return nullptr;
-    }
-
-    Image* img3 = loadImage(argv[3]);
-    if (img3 == nullptr) {
-        delete[] imgs;
-        delete img1;
-        delete img2;
-        return nullptr;
-    }
-
-    imgs[0] = img1;
-    imgs[1] = img2;
-    imgs[2] = img3;
 
     return imgs;
 }
@@ -56,15 +43,14 @@ Image** loadImages(char** argv) {
 // Placeholder main.
 int main(int argc, char** argv) {
     // Checking for argument validity.
-    if (argc != 5) {
-        std::cout << "Proper usage: tentons <input image 1> <input image 2> "
-                  << "<input image 3> <output image>\n";
-
+    if (argc == 1) {
+        std::cout << "Proper usage: tentons <img 1> <img 2> ... "
+                  << "<output image>\n";
         return 1;
     }
 
     // Loading each Image.
-    Image** imgs = loadImages(argv);
+    Image** imgs = loadImages(argc, argv);
     if (imgs == nullptr)
         return 2;
 
