@@ -2,6 +2,7 @@
 // Imports //
 #include <iostream>
 
+#include "process.hpp"
 #include "image.hpp"
 #include "pixel.hpp"
 

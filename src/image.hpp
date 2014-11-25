@@ -33,7 +33,4 @@ struct Image {
     int save(std::string);
 };
 
-// Processing a set of images to sort out unwanted pixels.
-Image* processImages(int, Image**);
-
 #endif

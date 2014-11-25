@@ -4,7 +4,8 @@ project("tetons")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-set(SOURCES "src/pixel.cpp"
+set(SOURCES "src/process.cpp"
+            "src/pixel.cpp"
             "src/image.cpp"
             "src/load.cpp")
 

@@ -126,20 +126,3 @@ int Image::save(std::string path) {
 
     return 1;
 }
-
-// Processing a set of images to sort out unwanted pixels.
-Image* processImages(int count, Image** imgs) {
-    return nullptr;
-
-    // if (!(i1->width    == i2->width    && i2->width    == i3->width  &&
-    //       i1->height   == i2->height   && i2->height   == i3->height &&
-    //       i1->maxValue == i2->maxValue && i2->maxValue == i3->maxValue))
-    //     return nullptr;
-
-    // Pixel* pixels = new Pixel[i1->width * i1->height];
-
-    // for (int i = 0; i < i1->width * i1->height; i++)
-    //     pixels[i] = choosePixel(i1->pixels[i], i2->pixels[i], i3->pixels[i]);
-
-    // return new Image(pixels, i1->width, i1->height, i1->maxValue);
-}
