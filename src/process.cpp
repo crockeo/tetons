@@ -22,7 +22,7 @@ bool validateImages(int count, Image** imgs) {
 Pixel* getPixelsAt(int count, Image** imgs, int index) {
     Pixel* pixels = new Pixel[count];
     for (int i = 0; i < count; i++)
-        pixels[i] = imgs[i]->pixels[i];
+        pixels[i] = imgs[i]->pixels[index];
     return pixels;
 }
 
