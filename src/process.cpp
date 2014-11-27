@@ -100,6 +100,11 @@ int newColumn(Image* img, int col) {
     return img->width - col;
 }
 
+// Determining the new row of a row.
+int newRow(Image* img, int row) {
+    return img->height - row;
+}
+
 // Flipping an image in the X coordinate.
 Image* flipxImage(Image* img) {
     int l = img->width * img->height;
@@ -109,6 +114,18 @@ Image* flipxImage(Image* img) {
         for (int col = 0; col < img->width; col++)
             pixels[convertCoords(img, row, col)] =
                 img->pixels[convertCoords(img, row, newColumn(img, col))];
+
+    return new Image(pixels, img->width, img->height, img->maxValue);
+}
+
+// Flipping an image in the Y coordinate.
+Image* flipyImage(Image* img) {
+    Pixel* pixels = new Pixel[img->width * img->height];
+
+    for (int row = 0; row < img->height; row++)
+        for (int col = 0; col < img->width; col++)
+            pixels[convertCoords(img, row, col)] =
+                img->pixels[convertCoords(img, newRow(img, row), col)];
 
     return new Image(pixels, img->width, img->height, img->maxValue);
 }

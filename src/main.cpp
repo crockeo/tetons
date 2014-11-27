@@ -86,6 +86,23 @@ int main(int argc, char** argv) {
         std::cout << "Cleaning up memory...\n";
         delete img;
         delete out;
+    } else if (operation.compare("flipy") == 0) {
+        if (argc != 4) {
+            std::cout << "Proper usage: tetons flipx <img> <out>\n";
+            return 4;
+        }
+
+        Image* img = loadImage(argv[2]);
+
+        std::cout << "Processing image...\n";
+        Image* out = flipyImage(img);
+
+        std::cout << "Outputting image..\n";
+        out->save(std::string(argv[3]));
+
+        std::cout << "Cleaning up memory...\n";
+        delete img;
+        delete out;
     } else {
         // Loading each Image.
         Image** imgs = loadImages(argc, argv);

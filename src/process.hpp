@@ -17,4 +17,7 @@ Image* grayscaleImage(Image*);
 // Flipping an image in the X coordinate.
 Image* flipxImage(Image*);
 
+// Flipping an image in the Y coordinate.
+Image* flipyImage(Image*);
+
 #endif
