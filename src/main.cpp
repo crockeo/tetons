@@ -50,10 +50,12 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    if (std::string(argv[1]).compare("grayscale") == 0) {
+    std::string operation = std::string(argv[1]);
+
+    if (operation.compare("grayscale") == 0) {
         if (argc != 4) {
             std::cout << "Proper usage: tetons greyscale <img> <out>\n";
-            return 1;
+            return 3;
         }
 
         Image* img = loadImage(argv[2]);
@@ -62,6 +64,23 @@ int main(int argc, char** argv) {
         Image* out = grayscaleImage(img);
 
         std::cout << "Outputting image...\n";
+        out->save(std::string(argv[3]));
+
+        std::cout << "Cleaning up memory...\n";
+        delete img;
+        delete out;
+    } else if (operation.compare("flipx") == 0) {
+        if (argc != 4) {
+            std::cout << "Proper usage: tetons flipx <img> <out>\n";
+            return 4;
+        }
+
+        Image* img = loadImage(argv[2]);
+
+        std::cout << "Processing image...\n";
+        Image* out = flipxImage(img);
+
+        std::cout << "Outputting image..\n";
         out->save(std::string(argv[3]));
 
         std::cout << "Cleaning up memory...\n";
@@ -95,7 +114,7 @@ int main(int argc, char** argv) {
 
         if (out != nullptr)
             delete out;
-
-        return 0;
     }
+
+    return 0;
 }

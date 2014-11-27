@@ -14,4 +14,7 @@ Image* processImages(int, Image**);
 // Greyscaling an image.
 Image* grayscaleImage(Image*);
 
+// Flipping an image in the X coordinate.
+Image* flipxImage(Image*);
+
 #endif

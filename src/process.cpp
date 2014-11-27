@@ -89,3 +89,26 @@ Image* grayscaleImage(Image* img) {
 
     return new Image(grayPixels, img->width, img->height, img->maxValue);
 }
+
+// Converting 2D coordinates to a 1D ordinate.
+int convertCoords(Image* img, int row, int col) {
+    return (row * img->width) + col;
+}
+
+// Determining the new column of a column.
+int newColumn(Image* img, int col) {
+    return img->width - col;
+}
+
+// Flipping an image in the X coordinate.
+Image* flipxImage(Image* img) {
+    int l = img->width * img->height;
+    Pixel* pixels = new Pixel[l];
+
+    for (int row = 0; row < img->height; row++)
+        for (int col = 0; col < img->width; col++)
+            pixels[convertCoords(img, row, col)] =
+                img->pixels[convertCoords(img, row, newColumn(img, col))];
+
+    return new Image(pixels, img->width, img->height, img->maxValue);
+}
