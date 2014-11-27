@@ -11,4 +11,7 @@
 // Processing a set of images.
 Image* processImages(int, Image**);
 
+// Greyscaling an image.
+Image* grayscaleImage(Image*);
+
 #endif

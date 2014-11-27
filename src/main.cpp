@@ -45,38 +45,57 @@ Image** loadImages(int argc, char** argv) {
 int main(int argc, char** argv) {
     // Checking for argument validity.
     if (argc == 1) {
-        std::cout << "Proper usage: tentons <img 1> <img 2> ... "
+        std::cout << "Proper usage: tetons <img 1> <img 2> ... "
                   << "<output image>\n";
         return 1;
     }
 
-    // Loading each Image.
-    Image** imgs = loadImages(argc, argv);
-    if (imgs == nullptr)
-        return 2;
+    if (std::string(argv[1]).compare("grayscale") == 0) {
+        if (argc != 4) {
+            std::cout << "Proper usage: tetons greyscale <img> <out>\n";
+            return 1;
+        }
 
-    // Processing the output image.
-    std::cout << "Processing output image...\n";
-    Image* out = processImages(argc - 2, imgs);
+        Image* img = loadImage(argv[2]);
 
-    // Writing the output image.
-    if (out != nullptr) {
-        std::cout << "Writing output image...\n";
-        out->save(std::string(argv[argc - 1]));
-    } else {
-        std::cout << "Cannot write out null output image!\n";
-    }
+        std::cout << "Processing image...\n";
+        Image* out = grayscaleImage(img);
 
-    // Cleaning up memory.
-    std::cout << "Cleaning up memory...\n";
-    for (int i = 0; i < argc - 2; i++)
-        if (imgs[i] != nullptr)
-            delete imgs[i];
+        std::cout << "Outputting image...\n";
+        out->save(std::string(argv[3]));
 
-    delete[] imgs;
-
-    if (out != nullptr)
+        std::cout << "Cleaning up memory...\n";
+        delete img;
         delete out;
+    } else {
+        // Loading each Image.
+        Image** imgs = loadImages(argc, argv);
+        if (imgs == nullptr)
+            return 2;
 
-    return 0;
+        // Processing the output image.
+        std::cout << "Processing output image...\n";
+        Image* out = processImages(argc - 2, imgs);
+
+        // Writing the output image.
+        if (out != nullptr) {
+            std::cout << "Writing output image...\n";
+            out->save(std::string(argv[argc - 1]));
+        } else {
+            std::cout << "Cannot write out null output image!\n";
+        }
+
+        // Cleaning up memory.
+        std::cout << "Cleaning up memory...\n";
+        for (int i = 0; i < argc - 2; i++)
+            if (imgs[i] != nullptr)
+                delete imgs[i];
+
+        delete[] imgs;
+
+        if (out != nullptr)
+            delete out;
+
+        return 0;
+    }
 }

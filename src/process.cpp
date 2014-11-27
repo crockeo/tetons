@@ -75,3 +75,17 @@ Image* processImages(int count, Image** imgs) {
                      imgs[0]->height,
                      imgs[0]->maxValue);
 }
+
+// Greyscaling an image.
+Image* grayscaleImage(Image* img) {
+    int l = img->width * img->height;
+    Pixel* grayPixels = new Pixel[l];
+
+    int avg;
+    for (int i = 0; i < l; i++) {
+        avg = img->pixels[i].sum() / 3;
+        grayPixels[i] = Pixel(avg, avg, avg);
+    }
+
+    return new Image(grayPixels, img->width, img->height, img->maxValue);
+}
