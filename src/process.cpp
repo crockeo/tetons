@@ -26,10 +26,33 @@ Pixel* getPixelsAt(int count, Image** imgs, int index) {
     return pixels;
 }
 
+// Choosing a pixel from a vector of pixels.
 Pixel choosePixel(int count, Pixel* pixels) {
-    // TODO: Develop a consensus.
-    Pixel p;
-    return p;
+    int n = 0;
+
+    Pixel ips[] = {
+        Pixel(0, 0, 0),
+        Pixel(0, 0, 0)
+    };
+
+    for (int i = 0; i < count; i++) {
+        if (n == 0)
+            ips[1] = pixels[i];
+
+        if (pixels[i] == ips[1])
+            n++;
+        else
+            n--;
+    }
+
+    n = 0;
+    for (int i = 0; i < count; i++)
+        if (pixels[i] == ips[1])
+            n++;
+
+    if (n > count / 2)
+        return ips[1];
+    return ips[0];
 }
 
 // Processing a set of images.
