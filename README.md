@@ -17,13 +17,14 @@ To get and build the project, run through the following commands:
 >$ cd tetons/ # Moving into the directory.
 >$ cmake .    # Generating a Makefile
 >$ make       # Maing the project.
+```
 
 ##### Program Commands
 
 For running the program when you've built it (it'll need to be moved out of the
 `bin` directory right after you build it), here are the possible commands:
 
-```
+```bash
 # Making the image grayscale.
 >$ tetons grayscale <img> <out>
 
