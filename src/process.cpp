@@ -2,10 +2,16 @@
 
 //////////////
 // Includes //
+#include <tuple>
+
 #include "image.hpp"
 
 //////////
 // Code //
+
+using std::make_tuple;
+using std::tuple;
+using std::get;
 
 // Verifying the validity of a set of images.
 bool validateImages(int count, Image** imgs) {
@@ -105,27 +111,35 @@ int newRow(Image* img, int row) {
     return img->height - row;
 }
 
-// Flipping an image in the X coordinate.
-Image* flipxImage(Image* img) {
-    int l = img->width * img->height;
-    Pixel* pixels = new Pixel[l];
+// Creating a new image based on some vertex transformation.
+template <class Function>
+Image* vertexTransform(Image* img, Function transform) {
+    Pixel* pixels = new Pixel[img->width * img->height];
 
-    for (int row = 0; row < img->height; row++)
-        for (int col = 0; col < img->width; col++)
+    for (int row = 0; row < img->height; row++) {
+        for (int col = 0; col < img->width; col++) {
+            tuple<int, int> tpos = transform(make_tuple(row, col));
+
             pixels[convertCoords(img, row, col)] =
-                img->pixels[convertCoords(img, row, newColumn(img, col))];
+                img->pixels[convertCoords(img,
+                                          get<0>(tpos),
+                                          get<1>(tpos))];
+        }
+    }
 
     return new Image(pixels, img->width, img->height, img->maxValue);
 }
 
+// Flipping an image in the X coordinate.
+Image* flipxImage(Image* img) {
+    return vertexTransform(img, [=](tuple<int, int> pair) -> tuple<int, int> {
+        return make_tuple(get<0>(pair), img->width - get<1>(pair));
+    });
+}
+
 // Flipping an image in the Y coordinate.
 Image* flipyImage(Image* img) {
-    Pixel* pixels = new Pixel[img->width * img->height];
-
-    for (int row = 0; row < img->height; row++)
-        for (int col = 0; col < img->width; col++)
-            pixels[convertCoords(img, row, col)] =
-                img->pixels[convertCoords(img, newRow(img, row), col)];
-
-    return new Image(pixels, img->width, img->height, img->maxValue);
+    return vertexTransform(img, [=](tuple<int, int> pair) -> tuple<int, int> {
+        return make_tuple(img->height - get<0>(pair), get<1>(pair));
+    });
 }
