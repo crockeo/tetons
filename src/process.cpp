@@ -98,17 +98,7 @@ Image* grayscaleImage(Image* img) {
 
 // Converting 2D coordinates to a 1D ordinate.
 int convertCoords(Image* img, int row, int col) {
-    return (row * img->width) + col;
-}
-
-// Determining the new column of a column.
-int newColumn(Image* img, int col) {
-    return img->width - col;
-}
-
-// Determining the new row of a row.
-int newRow(Image* img, int row) {
-    return img->height - row;
+    return (row * (img->width - 1)) + col;
 }
 
 // Creating a new image based on some vertex transformation.
