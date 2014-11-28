@@ -2,6 +2,7 @@
 
 //////////////
 // Includes //
+#include <vector>
 #include <tuple>
 
 #include "image.hpp"
@@ -10,6 +11,7 @@
 // Code //
 
 using std::make_tuple;
+using std::vector;
 using std::tuple;
 using std::get;
 
@@ -132,4 +134,46 @@ Image* flipyImage(Image* img) {
     return vertexTransform(img, [=](tuple<int, int> pair) -> tuple<int, int> {
         return make_tuple(img->height - get<0>(pair), get<1>(pair));
     });
+}
+
+// Bounding a number by a minimum and a maximum.
+int boundNum(int n, int min, int max) {
+    if (n < min)
+        return min;
+    if (n > max)
+        return max;
+    return n;
+}
+
+// Performing a radial blur on an image.
+Image* radialBlurImage(Image* img, int radius) {
+    Pixel* pixels = new Pixel[img->width * img->height];
+
+    int r, g, b, count;
+    Pixel p;
+    for (int row = 0; row < img->height; row++) {
+        for (int col = 0; col < img->width; col++) {
+            r = 0; g = 0; b = 0, count = 0;
+
+            for (int i = -radius; i < radius; i++) {
+                for (int j = -radius; j < radius; j++) {
+                    Pixel p = img->pixels[convertCoords(img,
+                                                        boundNum(row + i, 0, img->height - 1),
+                                                        boundNum(col + j, 0, img->width - 1))];
+
+                    r += p.r;
+                    g += p.g;
+                    b += p.b;
+                    count++;
+                }
+            }
+
+            pixels[convertCoords(img, row, col)] =
+                Pixel(r / count,
+                      g / count,
+                      b / count);
+        }
+    }
+
+    return new Image(pixels, img->width, img->height, img->maxValue);
 }

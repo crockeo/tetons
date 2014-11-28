@@ -34,6 +34,9 @@ For running the program when you've built it (it'll need to be moved out of the
 # Flipping the image in the Y-axis.
 >$ tetons flipy <img> <out>
 
+# Radially bluring the image.
+>$ tetons radial <radius> <img> <out>
+
 # Filtering out extraneous objects.
 >$ tetons <img 1> <img 2> ... <img n> <out>
 ```

@@ -5,6 +5,7 @@
 #include "process.hpp"
 #include "image.hpp"
 #include "pixel.hpp"
+#include "load.hpp"
 
 //////////
 // Code //
@@ -99,6 +100,23 @@ int main(int argc, char** argv) {
 
         std::cout << "Outputting image..\n";
         out->save(std::string(argv[3]));
+
+        std::cout << "Cleaning up memory...\n";
+        delete img;
+        delete out;
+    } else if (operation.compare("radial") == 0) {
+        if (argc != 5) {
+            std::cout << "Proper usage: tetons radial <radius> <img> <out>\n";
+            return 5;
+        }
+
+        Image* img = loadImage(argv[3]);
+
+        std::cout << "Processing image...\n";
+        Image* out = radialBlurImage(img, toInts(argv[2], 0));
+
+        std::cout << "Outputting image...\n";
+        out->save(std::string(argv[4]));
 
         std::cout << "Cleaning up memory...\n";
         delete img;

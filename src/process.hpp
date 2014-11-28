@@ -20,4 +20,7 @@ Image* flipxImage(Image*);
 // Flipping an image in the Y coordinate.
 Image* flipyImage(Image*);
 
+// Performing a radial blur on an image.
+Image* radialBlurImage(Image*, int);
+
 #endif

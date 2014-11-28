@@ -11,6 +11,9 @@
 //////////
 // Code //
 
+// Converting a set of characters to a number.
+int toInts(char*, int);
+
 // Verifying the hedaer on a PPM.
 bool verifyHeader(std::ifstream*);
 
