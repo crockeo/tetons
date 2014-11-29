@@ -100,7 +100,7 @@ Image* grayscaleImage(Image* img) {
 
 // Converting 2D coordinates to a 1D ordinate.
 int convertCoords(Image* img, int row, int col) {
-    return (row * (img->width - 1)) + col;
+    return (row * img->width) + col;
 }
 
 // Creating a new image based on some vertex transformation.
@@ -125,14 +125,14 @@ Image* vertexTransform(Image* img, Function transform) {
 // Flipping an image in the X coordinate.
 Image* flipxImage(Image* img) {
     return vertexTransform(img, [=](tuple<int, int> pair) -> tuple<int, int> {
-        return make_tuple(get<0>(pair), img->width - get<1>(pair));
+            return make_tuple(get<0>(pair), img->width - (get<1>(pair) + 1));
     });
 }
 
 // Flipping an image in the Y coordinate.
 Image* flipyImage(Image* img) {
     return vertexTransform(img, [=](tuple<int, int> pair) -> tuple<int, int> {
-        return make_tuple(img->height - get<0>(pair), get<1>(pair));
+        return make_tuple(img->height - (get<0>(pair) + 1), get<1>(pair));
     });
 }
 

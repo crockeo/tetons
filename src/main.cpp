@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
         delete out;
     } else if (operation.compare("flipy") == 0) {
         if (argc != 4) {
-            std::cout << "Proper usage: tetons flipx <img> <out>\n";
+            std::cout << "Proper usage: tetons flipy <img> <out>\n";
             return 4;
         }
 
